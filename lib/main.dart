@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_task/screens/home.dart';
+import 'package:my_task/screens/task_list.dart';
 
 void main() => runApp(new MyApp());
 
@@ -21,7 +21,10 @@ class MyApp extends StatelessWidget {
         //primarySwatch: Colors.blue,
         primaryColor: Colors.white,
       ),
-      home: new Home(),
+      home: new TaskList(),
+      routes: <String, WidgetBuilder> {
+
+      },
     );
   }
 }

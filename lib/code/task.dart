@@ -1,9 +1,9 @@
 class Task {
-  final String subject;
-  final String description;
+  final String title;
+  final String details;
 
   Task({
-    this.subject,
-    this.description
+    this.title,
+    this.details,
   });
 }
