@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_task/screens/task_details.dart';
 import 'package:my_task/code/db_manager.dart';
-import 'package:my_task/app_state_container.dart';
 
 class TaskList extends StatefulWidget {
   @override
@@ -57,6 +56,27 @@ class _TaskListState extends State<TaskList> {
     }
   }
   
+  /*Widget _createItem(int index) {
+    return new Dismissible(
+      key: new UniqueKey(),
+      onDismissed: (direction) {
+        manager.deleteTask(tasks[index].id)
+            .then((dynamic) => print('Deleted!'));
+      },
+      child: new ListTile (
+        title: new Text(tasks[index].title, style: new TextStyle(fontSize: 20.0),),
+        subtitle: new Text(tasks[index].detail.length > 50
+          ? tasks[index].detail.substring(0,50)
+          : tasks[index].detail
+        ),
+        onTap: () {
+          Navigator.of(context)
+            .push(new MaterialPageRoute(builder: (_) => TaskDetailWidget(manager, task: tasks[index],)));
+        },
+      ),
+    );
+  }*/
+
   Widget _createItem(int index) {
     return new Dismissible(
       key: new UniqueKey(),
@@ -64,16 +84,30 @@ class _TaskListState extends State<TaskList> {
         manager.deleteTask(tasks[index].id)
             .then((dynamic) => print('Deleted!'));
       },
-      child: new ListTile(
-        title: new Text(tasks[index].title),
-        subtitle: new Text(tasks[index].detail.length > 50
-            ? tasks[index].detail.substring(0,50)
-            : tasks[index].detail
+      background: new Container(
+        color: Colors.blueAccent,
+      ),
+      child: new Container (
+        decoration: new BoxDecoration(
+          color: Colors.white,
+          border: new Border(
+            bottom: new BorderSide(
+              color: Colors.grey,
+              width: .25,
+            )
+          )
         ),
-        onTap: () {
-          Navigator.of(context)
-              .push(new MaterialPageRoute(builder: (_) => TaskDetailWidget(manager, task: tasks[index],)));
-        },
+        child: new ListTile (
+          title: new Text(tasks[index].title, style: new TextStyle(fontSize: 20.0),),
+          subtitle: new Text(tasks[index].detail.length > 50
+              ? tasks[index].detail.substring(0,50)
+              : tasks[index].detail
+          ),
+          onTap: () {
+            Navigator.of(context)
+                .push(new MaterialPageRoute(builder: (_) => TaskDetailWidget(manager, task: tasks[index],)));
+          },
+        ),
       )
     );
   }

@@ -57,6 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('My Tasks'),
+        actions: <Widget>[
+          new PopupMenuButton(
+            onSelected: null,
+            itemBuilder: (BuildContext context) {
+            },
+          ),
+        ],
       ),
       body: body,
     );
