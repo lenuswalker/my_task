@@ -10,6 +10,11 @@ dependencies:
   cupertino_icons: ^0.1.0
   sqflite: ^0.8.7
   path_provider: ^0.4.0
+  google_sign_in: ^3.0.3
+  firebase_auth: ^0.5.9
+  firebase_messaging: ^0.2.5
+  cloud_firestore: ^0.7.0+2
+
 
 dev_dependencies:
   flutter_test:

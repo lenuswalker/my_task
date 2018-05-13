@@ -1,40 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:my_task/screens/task_details.dart';
+import 'package:my_task/app_state_container.dart';
+import 'package:my_task/code/app_state.dart';
+import 'package:my_task/screens/login.dart';
+import 'package:my_task/screens/task_list.dart';
 
-/*class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class HomeScreen extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomeScreenState createState() => new _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeScreenState extends State<HomeScreen> {
+  AppState appState;
+
+  Widget get _pageToDisplay {
+    if (appState.isLoading) {
+      return _loadingView;
+    } else if (!appState.isLoading && appState.user == null) {
+      return new LoginScreen();
+    } else {
+      return new TaskList();
+    }
+  }
+
+  Widget get _loadingView {
+    return new Center(
+      child: new CircularProgressIndicator(),
+    );
+  }
+
+  Widget get _homeView {
+    return new Center(
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Text(
+            'Logged In:',
+            style: new TextStyle(
+              fontSize: 18.0,
+            ),
+          ),
+          new Text(
+            appState.user.displayName,
+            style: new TextStyle(fontSize: 24.0),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    var container = AppStateContainer.of(context);
+    appState = container.state;
+    Widget body = _pageToDisplay;
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('My Tasks'),
       ),
-      body: new Container(
-        padding: new EdgeInsets.all(32.0),
-        child: new Column(
-          children: <Widget>[
-          ],
-        ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            new MaterialPageRoute(builder: (context) => new TaskDetailWidget()),
-          );
-        },
-        tooltip: 'New Task',
-        child: new Icon(Icons.add),
-      ),
+      body: body,
     );
   }
-}*/
+}

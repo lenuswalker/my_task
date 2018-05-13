@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_task/screens/task_details.dart';
 import 'package:my_task/code/db_manager.dart';
+import 'package:my_task/app_state_container.dart';
 
 class TaskList extends StatefulWidget {
   @override
@@ -19,14 +20,14 @@ class _TaskListState extends State<TaskList> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    //final container = AppStateContainer.of(context);
     return new FutureBuilder<List<Task>>(
       future: manager.getTasks(),
       builder: (context, snapshot) {
         return new Scaffold(
-          appBar: new AppBar(
+          /*appBar: new AppBar(
             title: Text('My Tasks'),
-          ),
+          ),*/
           body: buildTasksList(snapshot),
           floatingActionButton: new FloatingActionButton(
             onPressed: () => Navigator.of(context).push(
