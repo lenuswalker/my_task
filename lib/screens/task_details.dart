@@ -15,6 +15,7 @@ class _TaskDetailWidgetState extends State<TaskDetailWidget> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   String _title;
   String _detail;
+  bool _completed;
   final DbManager _manager;
   final Task task;
 
@@ -23,9 +24,9 @@ class _TaskDetailWidgetState extends State<TaskDetailWidget> {
   _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      task == null ? _manager.insertTask(new Task(title: _title, detail: _detail))
+      task == null ? _manager.insertTask(new Task(title: _title, detail: _detail, completed: _completed ?? 0))
         .then((id) => Navigator.pop(context))
-        : _manager.updateTask(new Task(title: _title, detail: _detail, id: task.id))
+        : _manager.updateTask(new Task(title: _title, detail: _detail, id: task.id, completed: _completed ?? 0))
         .then((id) => Navigator.pop(context));
     }
   }

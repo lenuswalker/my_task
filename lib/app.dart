@@ -17,7 +17,6 @@ class _MyAppWidgetState extends State<MyAppWidget> {
       theme: new ThemeData(
         primaryColor: Colors.white,
       ),
-      //home: new LoginScreen(),
       routes: {
         '/': (BuildContext context) => new HomeScreen(),
         '/signin': (BuildContext context) => new LoginScreen(),

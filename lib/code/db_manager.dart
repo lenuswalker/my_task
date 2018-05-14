@@ -10,6 +10,7 @@ final String TABLE_NAME = "tasks";
 final String ID = "_id";
 final String TITLE = "title";
 final String DETAIL = "detail";
+final String COMPLETED = "completed";
 
 class DbManager {
 
@@ -25,7 +26,8 @@ class DbManager {
             await db.execute('''create table $TABLE_NAME (
          $ID integer primary key autoincrement,
          $TITLE text not null,
-         $DETAIL text not null)''');
+         $DETAIL text not null,
+         $COMPLETED integer not null)''');
           });
     }
   }
@@ -62,11 +64,12 @@ class Task {
   int id;
   String title;
   String detail;
+  int completed;
 
-  Task({@required this.title, @required this.detail, this.id});
+  Task({@required this.title, this.detail, this.id, this.completed = 0});
 
-  Map<String, String> toMap() {
-    Map<String, String> map = {TITLE: title, DETAIL: detail};
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {TITLE: title, DETAIL: detail, COMPLETED: completed};
     return map;
   }
 
@@ -74,10 +77,11 @@ class Task {
     id = map[ID];
     title = map[TITLE];
     detail = map[DETAIL];
+    completed = map[COMPLETED] ?? 0;
   }
 
   @override
   bool operator ==(other) {
-    return other is Task && other.title == title && other.detail == detail && other.id == id;
+    return other is Task && other.title == title && other.detail == detail && other.id == id && other.completed == completed;
   }
 }

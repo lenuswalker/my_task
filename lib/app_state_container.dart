@@ -33,6 +33,7 @@ class _AppStateContainerState extends State<AppStateContainer> {
   AppState state;
   GoogleSignInAccount googleUser;
   final googleSignIn = new GoogleSignIn();
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -62,7 +63,6 @@ class _AppStateContainerState extends State<AppStateContainer> {
     }
 
     FirebaseUser firebaseUser;
-    FirebaseAuth _auth = FirebaseAuth.instance;
     try {
       GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       firebaseUser = await _auth.signInWithGoogle(
@@ -78,6 +78,15 @@ class _AppStateContainerState extends State<AppStateContainer> {
       print(error);
       return null;
     }
+  }
+
+  signOutFirebase() async {
+    await _auth.signOut();
+    await googleSignIn.signOut();
+    setState(() {
+      state.user = null;
+    });
+    initUser();
   }
 
   Future<dynamic> _ensureLoggedInOnStartUp() async {

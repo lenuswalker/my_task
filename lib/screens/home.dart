@@ -50,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //final container = AppStateContainer.of(context);
     var container = AppStateContainer.of(context);
     appState = container.state;
     Widget body = _pageToDisplay;
@@ -64,6 +65,26 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ],
+      ),
+      drawer: new Drawer(
+        child: new ListView(
+          primary: false,
+          children: <Widget>[
+            new DrawerHeader(
+              child: new Center(
+                child: new Text('Account Settings'),
+              ),
+            ),
+            new ListTile(
+              title: const Text('Logout', textAlign: TextAlign.right,),
+              trailing: const Icon(Icons.exit_to_app),
+              onTap: () async {
+                await container.signOutFirebase();
+                Navigator.of(context).pushReplacementNamed('/');
+              },
+            )
+          ],
+        ),
       ),
       body: body,
     );
